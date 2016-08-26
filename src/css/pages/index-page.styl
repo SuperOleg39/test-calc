@@ -1,0 +1,67 @@
+.cart
+    padding: 20px
+    max-width: 700px
+    .cart-header
+        padding-bottom: 20px
+        border-bottom: 2px solid gray
+        margin-bottom: 20px
+        .title
+            margin-bottom: 25px
+        input[type="text"]
+            width: 140px
+            margin-right: 10px
+        input[type="number"]
+            width: 100px
+            margin-right: 10px
+        label
+            position: absolute
+            left: 5px
+            top: -80%
+            font-size: 14px
+    .cart-content
+        input[type="number"]
+            width: 60px
+            margin: 0 10px
+        input[type="submit"]
+            margin-left: 10px
+    .cart-table
+        border-top: 0.5px solid gray
+        border-left: 0.5px solid gray
+        margin-bottom: 15px
+        .table-row
+            display: flex
+            width: 100%
+            &:nth-child(odd)
+                background-color: #ededed
+            &.table-head
+                background-color: #d1d1d1
+        .table-cell
+            flex: 2
+            padding: 0 10px
+            line-height: 30px
+            border-right: 0.5px solid gray
+            border-bottom: 0.5px solid gray
+            overflow: hidden
+            text-overflow: ellipsis
+            white-space: nowrap
+            &:nth-child(2)
+                flex: 1
+    .title
+        font-size: 22px
+        line-height: 30px
+        margin-bottom: 15px
+    input[type="text"],
+    input[type="number"]
+        height: 22px
+        line-height: 22px
+        padding: 0 5px
+        outline: none
+    input[type="submit"]
+        height: 22px
+        line-height: 22px
+        padding: 0 15px
+        border-radius: 0
+        border: none
+        outline: none
+        appearance: none
+        cursor: pointer

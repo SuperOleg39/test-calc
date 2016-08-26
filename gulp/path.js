@@ -1,10 +1,10 @@
 export default {
         build: {
-            html:    'build/',
-            js:      'build/js/',
-            css:     'build/css/',
-            fonts:   'build/fonts/',
-            img:     'build/img/'
+            html:    './',
+            js:      './js/',
+            css:     './css/',
+            fonts:   './fonts/',
+            img:     './img/'
         },
         src: {
             html:    'src/html/*.jade',

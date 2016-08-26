@@ -1,2 +1,27 @@
-div
-    | Test content
+#cart.cart
+    .cart-header
+        .title Добавить продукт
+        .horizontal-wrap
+            div
+                label Продукт
+                input(type="text")#productName
+            div
+                label Цена
+                input(type="number")#productPrice
+            div
+                input(type="submit" value="Добавить")#addProduct
+    .cart-content
+        .title Корзина
+        #cartTable.cart-table
+            .table-row.table-head
+                .table-cell Продукт
+                .table-cell Цена
+                .table-cell Цена со скидкой
+        .horizontal-wrap
+            div Применить скидку
+            div
+                label
+                input(type="number")#discount
+            div рублей
+            div
+                input(type="submit" value="Применить")#setDiscount
