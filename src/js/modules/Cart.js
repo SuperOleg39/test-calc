@@ -76,14 +76,20 @@ export class Cart extends EventEmitter {
         }, 0);
     }
 
-    getMaxPriceProduct() {
+    getMaxPriceProductId() {
         let prices = this.products.map( item => {
             return item.price;
         });
-
         let maxPrice = Math.max.apply(null, prices);
+        let maxPriceProductId;
 
-        return maxPrice;
+        this.products.forEach( (item, i) => {
+            if (item.price === maxPrice) {
+                maxPriceProductId = i;
+            };
+        });
+
+        return maxPriceProductId;
     }
 
     getProductsProportions() {
@@ -95,24 +101,37 @@ export class Cart extends EventEmitter {
     }
 
     setDiscount() {
-        let discount = this.discountField.value;
+        this.discount = this.discountField.value;
+
+        this.emit('setDiscount');
+    }
+
+    applyDiscount() {
+        let discount = this.discount;
         let sum = this.getProductsSum();
-        let appliedDiscount = 0;
+        let sumWithDiscount = 0;
 
         if (discount > 0 && discount <= sum) {
-            discount = Math.round(discount);
-
             let proportions = this.getProductsProportions();
 
             proportions.forEach( (item, i) => {
-                let currentDiscount = discount * item;
+                let currentDiscount = Math.round(this.products[i].price - discount * item);
 
-                appliedDiscount += currentDiscount;
+                sumWithDiscount += currentDiscount;
 
-                this.products[i].discount = Math.round(this.products[i].price - currentDiscount);
+                this.products[i].discount = currentDiscount;
             });
 
-            this.emit('setDiscount');
+            let remainder = discount - (sum - sumWithDiscount);
+
+            if (remainder > 0) {
+                let maxPriceProductId = this.getMaxPriceProductId();
+                let maxPriceProduct = this.products[maxPriceProductId];
+
+                maxPriceProduct.discount += remainder;
+            }
+
+            this.emit('applyDiscount');
         }
     }
 
@@ -132,7 +151,8 @@ export class Cart extends EventEmitter {
 
     bindModelEvents() {
         this.on('addProduct', this.refreshCart, this);
-        this.on('addProduct', this.setDiscount, this);
-        this.on('setDiscount', this.refreshCart, this);
+        this.on('addProduct', this.applyDiscount, this);
+        this.on('setDiscount', this.applyDiscount, this);
+        this.on('applyDiscount', this.refreshCart, this);
     }
 }

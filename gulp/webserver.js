@@ -7,7 +7,7 @@ import path from './path';
 
 const config = {
     server: {
-        baseDir: "./build"
+        baseDir: "./"
     },
     tunnel: false,
     host: 'localhost',
