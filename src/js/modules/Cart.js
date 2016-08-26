@@ -115,9 +115,7 @@ export class Cart extends EventEmitter {
             let proportions = this.getProductsProportions();
 
             proportions.forEach( (item, i) => {
-                console.log(discount * item)
                 let currentDiscount = Math.round(this.products[i].price - discount * item);
-                console.log(currentDiscount)
 
                 sumWithDiscount += currentDiscount;
 
