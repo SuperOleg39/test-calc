@@ -115,21 +115,21 @@ export class Cart extends EventEmitter {
             let proportions = this.getProductsProportions();
 
             proportions.forEach( (item, i) => {
+                console.log(discount * item)
                 let currentDiscount = Math.round(this.products[i].price - discount * item);
+                console.log(currentDiscount)
 
                 sumWithDiscount += currentDiscount;
 
                 this.products[i].discount = currentDiscount;
             });
 
+            // Apply remainder
             let remainder = discount - (sum - sumWithDiscount);
+            let maxPriceProductId = this.getMaxPriceProductId();
+            let maxPriceProduct = this.products[maxPriceProductId];
 
-            if (remainder > 0) {
-                let maxPriceProductId = this.getMaxPriceProductId();
-                let maxPriceProduct = this.products[maxPriceProductId];
-
-                maxPriceProduct.discount += remainder;
-            }
+            maxPriceProduct.discount -= remainder;
 
             this.emit('applyDiscount');
         }
